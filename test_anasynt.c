@@ -13,24 +13,28 @@ void test_synt(char* expression){
 
     // Exemple d'expression avec les symboles Unicode, incluant la flèche double
     char** lexemes = CreationListeLexeme(expression);
-    int length = sizeof(lexemes) / sizeof(lexemes[0]);
-    printf(length);
+    ASTNode* ast = analyseur_syntaxique(lexemes);
 
-	/*
-    // Parser la liste des lexèmes et créer l'AST
-    ASTNode *ast = parse(lexemes,lexemes);
 
     // Afficher l'AST
-    printf("\nArbre Syntaxique :\n");
+    printf("\nArbre Syntaxique de l'expression ");
+    printf("%s : \n\n",expression);
     printAST(ast, 0);
 
     // Libérer la mémoire de l'AST
-    freeAST(ast);*/
+    freeAST(ast);
     
 }
 
 int main() {
     test_synt("(p1⇒p2)→((¬p1)∨p2)");
+    test_synt("(p1∨(p2∧p3))→((p1∨p2)∧(p1∨p3))");
+    test_synt("(p1∨p2)→(p2∨p1)");
+    test_synt("(p1∧p2)→(p2∧p1)");
+    test_synt("(¬(p1∧p2))→((¬p1)∨(¬p2))");
+    test_synt("(¬(p1∨p2))→((¬p1)∧(¬p2))");
+    test_synt("(¬(¬p1))→p1");
+    
 
     return 0;
 }

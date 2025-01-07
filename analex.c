@@ -4,27 +4,27 @@
 #include <ctype.h>
 #include <locale.h>
 
-// Définir une taille maximale pour la liste des lexèmes
+//taille fini pour le nombre de lexemes
 #define MAX_LEXEMES 100
 
-// Définir les séquences UTF-8 pour les opérateurs logiques
+//séquences UTF-8 pour les opérateurs logiques
 #define ET_LOGIQUE "\xE2\x88\xA7"           // (U+2227)
 #define OU_LOGIQUE "\xE2\x88\xA8"           //  (U+2228)
 #define NON_LOGIQUE "\xC2\xAC"              //  (U+00AC)
 #define PRODUIT "\xE2\x86\x92"              //  (U+2192)
 #define IMPLICATION_DOUBLE "\xE2\x87\x92"    //  (U+21D2)
 
-// Fonction pour comparer une sous-chaîne avec une séquence UTF-8
+//fonction pour comparer une sous chaine avec une séquence UTF-8
 int match_sequence(const char* chaine, int pos, const char* seq) {
     return strncmp(&chaine[pos], seq, strlen(seq)) == 0;
 }
 
-// Fonction pour créer la liste des lexèmes
+//Fonction creant la liste des lexèmes
 char** CreationListeLexeme(const char* chaine) {
-    // Allouer dynamiquement la liste des lexèmes
+    //allouer dynamiquement la liste des lexemes
     char** ListeLexeme = malloc(MAX_LEXEMES * sizeof(char*));
     if (!ListeLexeme) {
-        perror("Échec de l'allocation mémoire");
+        perror("echec de l'allocation memoire");
         exit(EXIT_FAILURE);
     }
 
@@ -38,7 +38,7 @@ char** CreationListeLexeme(const char* chaine) {
     }
 
     while (i < n) {
-        // Vérifier les séquences UTF-8 d'abord
+        //on verifie en premier les sequences UTF-8
         if (match_sequence(chaine, i, ET_LOGIQUE)) {
             ListeLexeme[lex_idx++] = strdup("Op(ET)");
             i += strlen(ET_LOGIQUE);
@@ -61,27 +61,27 @@ char** CreationListeLexeme(const char* chaine) {
         }
         else {
             switch (chaine[i]) {
-                case '(': // Parenthèse ouvrante
+                case '(': //Parenthèse ouvrante
                     ListeLexeme[lex_idx++] = strdup("PO");
                     i++;
                     break;
-                case ')': // Parenthèse fermante
+                case ')': //Parenthèse fermante
                     ListeLexeme[lex_idx++] = strdup("PF");
                     i++;
                     break;
                 default:
-                    if (islower((unsigned char)chaine[i])) { // Vérifie si c'est une lettre minuscule
+                    if (islower((unsigned char)chaine[i])) { //Pour une lettre minuscule
                         int start = i;
-                        // Avancer l'index pour capturer la proposition complète (lettre + chiffres éventuels)
+                        //On avance l'index pour capturer la proposition complete (lettre + chiffres eventuels)
                         while (i < n && (islower((unsigned char)chaine[i]) || isdigit((unsigned char)chaine[i]))) {
                             i++;
                         }
                         int len = i - start;
-                        // Allouer suffisamment de mémoire pour "Prop(" + identifiant + ")" + '\0'
+                        //On alloue suffisamment de memoire pour "Prop(" + identifiant + ")" + '\0'
                         char* res = malloc(6 + len + 1); // "Prop(" + identifiant + ")" + '\0'
                         if (!res) {
                             perror("Échec de l'allocation mémoire");
-                            // Libérer la mémoire allouée avant de quitter
+                            //On libere la mémoire allouee avant de quitter
                             for (int j = 0; j < lex_idx; j++) {
                                 free(ListeLexeme[j]);
                             }
@@ -92,12 +92,12 @@ char** CreationListeLexeme(const char* chaine) {
                         ListeLexeme[lex_idx++] = res;
                     }
                     else if (isspace((unsigned char)chaine[i])) {
-                        // Ignorer les espaces
+                        //Ignorer les espaces
                         i++;
                     }
                     else {
                         fprintf(stderr, "Lexeme invalide dans la chaine: '%c'\n", chaine[i]);
-                        // Libérer la mémoire allouée avant de quitter
+                        //Liberer la memoire allouee avant de quitter
                         for (int j = 0; j < lex_idx; j++) {
                             free(ListeLexeme[j]);
                         }
@@ -108,14 +108,14 @@ char** CreationListeLexeme(const char* chaine) {
             }
         }
 
-        // Vérifier si la liste des lexèmes a atteint sa capacité maximale
+        //Verifier si la liste des lexèmes a atteint sa capacité maximale
         if (lex_idx >= MAX_LEXEMES - 1) {
-            fprintf(stderr, "Nombre maximal de lexèmes atteint\n");
+            fprintf(stderr, "Nombre maximal de lexemes atteint\n");
             break;
         }
     }
 
-    ListeLexeme[lex_idx] = NULL; // Terminer la liste des lexèmes avec NULL
+    ListeLexeme[lex_idx] = NULL; //Terminer la liste des lexemes avec NULL
 
     return ListeLexeme;
 }
