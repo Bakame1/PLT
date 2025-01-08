@@ -1,25 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+//Fonctions pour l'allocation et la libération de mémoire dynamique
+//(malloc, free), ainsi que d'autres fonctionnalités générales telles que
+//exit pour terminer le programme.
+
 #include <string.h>
+//Offre des fonctions pour manipuler les chaînes de caractères, comme
+//strlen pour obtenir la longueur d'une chaîne, strncmp pour comparer les
+//chaînes et strdup pour dupliquer une chaîne.
+
 #include <ctype.h>
-#include <locale.h>
+//Cette librairie contient des fonctions pour vérifier le type de 
+//caractère, comme islower pour déterminer si un caractère est une lettre
+//minuscule et isdigit pour vérifier si un caractère est un chiffre.
+
+#include "analex.h"
+//Pour déclarer CreationListeLexeme
+
 
 //taille fini pour le nombre de lexemes
 #define MAX_LEXEMES 100
 
-//séquences UTF-8 pour les opérateurs logiques
+//sequences UTF-8 pour les opérateurs logiques
 #define ET_LOGIQUE "\xE2\x88\xA7"           // (U+2227)
 #define OU_LOGIQUE "\xE2\x88\xA8"           //  (U+2228)
 #define NON_LOGIQUE "\xC2\xAC"              //  (U+00AC)
 #define PRODUIT "\xE2\x86\x92"              //  (U+2192)
-#define IMPLICATION_DOUBLE "\xE2\x87\x92"    //  (U+21D2)
+#define IMPLICATION_DOUBLE "\xE2\x87\x92"   //  (U+21D2)
 
-//fonction pour comparer une sous chaine avec une séquence UTF-8
+//fonction pour comparer une sous chaine avec une sequence UTF-8
 int match_sequence(const char* chaine, int pos, const char* seq) {
     return strncmp(&chaine[pos], seq, strlen(seq)) == 0;
 }
 
-//Fonction creant la liste des lexèmes
+//fonction creant la liste des lexèmes
+//parametre chaine: une chaine de caracteres
+//retourne une liste de chaines de caracteres
 char** CreationListeLexeme(const char* chaine) {
     //allouer dynamiquement la liste des lexemes
     char** ListeLexeme = malloc(MAX_LEXEMES * sizeof(char*));
@@ -108,14 +124,14 @@ char** CreationListeLexeme(const char* chaine) {
             }
         }
 
-        //Verifier si la liste des lexèmes a atteint sa capacité maximale
+        //on verifie si la liste des lexemes a atteint sa capacité maximale
         if (lex_idx >= MAX_LEXEMES - 1) {
             fprintf(stderr, "Nombre maximal de lexemes atteint\n");
             break;
         }
     }
 
-    ListeLexeme[lex_idx] = NULL; //Terminer la liste des lexemes avec NULL
+    ListeLexeme[lex_idx] = NULL; //terminer la liste des lexemes avec NULL
 
     return ListeLexeme;
 }

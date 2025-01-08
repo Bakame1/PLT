@@ -1,7 +1,12 @@
 #include <stdio.h>
-#include "runtime.c" // Inclure directement le runtime
+#include "runtime.c"
 
-// Fonction pour tester une expression logique avec la machine virtuelle
+
+/* On teste une expression logique avec la machine virtuelle avec la fonction test_runtime.
+  Cette fonction prend le nom du test, un tableau d'instructions représentant le programme à exécuter,
+  et la taille de ce programme. Elle charge les instructions dans la machine virtuelle, exécute le programme,
+  puis réinitialise l'état de la machine pour le test suivant.
+ */
 void test_runtime(const char *test_name, VMInstruction program[], int program_size) {
     printf("\n=== Test de la machine virtuelle : %s ===\n", test_name);
 
@@ -73,4 +78,5 @@ int main() {
 
     return 0;
 }
+
 

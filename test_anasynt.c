@@ -3,29 +3,35 @@
 #include <string.h>
 #include <ctype.h>
 #include <locale.h>
+
+//Lien vers les 2 analyseurs precedents
 #include "anasynt.c"
 #include "analex.c"
 
-
+//Fonction test réalisant une analyse syntaxique sur une expression choisie
+//Parametre expression : chaine de caracteres
+//Affiche le l'arbre syntaxique si l'analyse est réussie sinon une erreur
 void test_synt(char* expression){
-    // Définir la locale pour gérer les caractères UTF-8 correctement
+    //Gestion des caractères UTF-8
     setlocale(LC_ALL, "");
 
-    // Exemple d'expression avec les symboles Unicode, incluant la flèche double
+    //Création de la liste de lexemes
     char** lexemes = CreationListeLexeme(expression);
+    //Analyse syntaxique à partir de cette liste de lexmes
     ASTNode* ast = analyseur_syntaxique(lexemes);
 
 
-    // Afficher l'AST
+    //Affichage de l'arbre syntaxique
     printf("\nArbre Syntaxique de l'expression ");
     printf("%s : \n\n",expression);
     printAST(ast, 0);
 
-    // Libérer la mémoire de l'AST
+    //On libère la mémoire de l'arbre syntaxique
     freeAST(ast);
     
 }
 
+//Fonction principale avec les differentes règles de logique provenant du fichier Regles.txt
 int main() {
     test_synt("(p1⇒p2)→((¬p1)∨p2)");
     test_synt("(p1∨(p2∧p3))→((p1∨p2)∧(p1∨p3))");
