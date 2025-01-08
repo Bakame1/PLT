@@ -33,14 +33,21 @@ void test_synt(char* expression){
 
 //Fonction principale avec les differentes règles de logique provenant du fichier Regles.txt
 int main() {
+
+    //tests valides
+    printf("\nTests valides : \n\n");
     test_synt("(p1⇒p2)→((¬p1)∨p2)");
     test_synt("(p1∨(p2∧p3))→((p1∨p2)∧(p1∨p3))");
     test_synt("(p1∨p2)→(p2∨p1)");
     test_synt("(p1∧p2)→(p2∧p1)");
     test_synt("(¬(p1∧p2))→((¬p1)∨(¬p2))");
     test_synt("(¬(p1∨p2))→((¬p1)∧(¬p2))");
-    test_synt("(¬(¬p1))→p1");
     
+    
+    //tests invalides
+    printf("\nTests invalides : \n\n");
+    test_synt("(p1⇒p2");//Parenthese manquante
+  
 
     return 0;
 }

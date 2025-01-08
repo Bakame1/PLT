@@ -38,7 +38,8 @@ void test(char* expression){
 
 //Fonction principale avec les differentes règles de logique provenant du fichier
 int main() {
-
+	
+	//Tests valides
 	test("(p1⇒p2)→((¬p1)∨p2)");
 	test("(p1∨(p2∧p3))→((p1∨p2)∧(p1∨p3))");
 	test("(p1∨p2)→(p2∨p1)");
@@ -46,6 +47,12 @@ int main() {
 	test("(¬(p1∧p2))→((¬p1)∨(¬p2))");
 	test("(¬(p1∨p2))→((¬p1)∧(¬p2))");
 	test("(¬(¬p1))→p1");
+	
+	//Tests invalides
+	//Il est important de les réaliser un par un car les tests invalide stop l'execution
+	//test("(¬(P1∨p2))→((¬p1)∧(¬P2))");//majuscule
+	//test("(¬(¬p1))→p?a");//caractere innatendu
+	test("(¬(¬p%1))→p2");//caractere innatendu
 	
     	return 0;
     
