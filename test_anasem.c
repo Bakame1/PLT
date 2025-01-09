@@ -14,14 +14,14 @@
 void test_sem(const char *expression) {
     printf("\n=== Test de l'analyse sémantique pour l'expression : %s ===\n", expression);
 
-    //Analyse léxicale : création de la liste de lexemes
+    //Analyse léxicale
     char** lexemes = CreationListeLexeme(expression);
     if (!lexemes) {
         fprintf(stderr, "Erreur : Analyse lexicale échouée pour l'expression : %s\n", expression);
         return;
     }
 
-    //Analyse syntaxique : géneration d'un arbre syntaxique
+    //Analyse syntaxique
     ASTNode* ast = analyseur_syntaxique(lexemes);
     if (!ast) {
         fprintf(stderr, "Erreur : Analyse syntaxique échouée pour l'expression : %s\n", expression);
@@ -47,7 +47,7 @@ int main() {
     //Gestion des caractères UTF-8
     setlocale(LC_ALL, "");
 
-    //Initialiser les propositions valides
+    //On initialise les propositions valides
     initialize_valid_props();
 
     //Tests avec des expressions valides
@@ -57,13 +57,13 @@ int main() {
 
     //Tests avec des expressions invalides
     //A tester une par une car l'execution s'arrete dès lors qu'il y a une erreur sémantique
-    //Empechant alors de tester toutes les expressions invalides
+    //Empechant alors de tester toutes les expressions invalides à la suite
     
-    test_sem("(p4∧p1)"); // Proposition invalide : p4
-    //test_sem("(p1∧)");   // Opérateur AND sans opérande droit
-    //test_sem("¬");       // Opérateur NOT sans opérande
-    //test_sem("(p1⇒)");   // Opérateur IMPLIQUE sans opérande droit
-    //test_sem("(∧p1)");   // Opérateur AND sans opérande gauche
+    test_sem("(p4∧p1)"); //Proposition invalide : p4
+    //test_sem("(p1∧)");   //Opérateur AND sans opérande droit
+    //test_sem("¬");       //Opérateur NOT sans opérande
+    //test_sem("(p1⇒)");   //Opérateur IMPLIQUE sans opérande droit
+    //test_sem("(∧p1)");   //Opérateur AND sans opérande gauche
 
     //On libère la mémoire allouée aux propositions valides
     free_valid_props_memory();

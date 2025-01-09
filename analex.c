@@ -6,8 +6,8 @@
 
 #include <string.h>
 //Offre des fonctions pour manipuler les chaînes de caractères, comme
-//strlen pour obtenir la longueur d'une chaîne, strncmp pour comparer les
-//chaînes et strdup pour dupliquer une chaîne.
+//strlen pour obtenir la longueur d'une chaîne, strncmp pour comparer les chaînes
+//strdup pour dupliquer une chaîne.
 
 #include <ctype.h>
 //Cette librairie contient des fonctions pour vérifier le type de 
@@ -22,19 +22,24 @@
 #define MAX_LEXEMES 100
 
 //sequences UTF-8 pour les opérateurs logiques
-#define ET_LOGIQUE "\xE2\x88\xA7"           // (U+2227)
-#define OU_LOGIQUE "\xE2\x88\xA8"           //  (U+2228)
-#define NON_LOGIQUE "\xC2\xAC"              //  (U+00AC)
-#define PRODUIT "\xE2\x86\x92"              //  (U+2192)
-#define IMPLICATION_DOUBLE "\xE2\x87\x92"   //  (U+21D2)
+#define ET_LOGIQUE "\xE2\x88\xA7"           //(U+2227)
+#define OU_LOGIQUE "\xE2\x88\xA8"           //(U+2228)
+#define NON_LOGIQUE "\xC2\xAC"              //(U+00AC)
+#define PRODUIT "\xE2\x86\x92"              //(U+2192)
+#define IMPLICATION_DOUBLE "\xE2\x87\x92"   //(U+21D2)
 
-//fonction pour comparer une sous chaine avec une sequence UTF-8
+//Fonction pour comparer une sous chaine avec une sequence UTF-8
+//Parametre chaine : chaine de caracteres
+//Parametre pos : entier
+//Parametre seq : chaine de caracteres
+//La fonction retourne 1 si la sous-chaîne de chaine à partir de la position pos correspond à la séquence seq.
+//retourne 0 si la sous-chaîne ne correspond pas à la séquence seq
 int match_sequence(const char* chaine, int pos, const char* seq) {
     return strncmp(&chaine[pos], seq, strlen(seq)) == 0;
 }
 
-//fonction creant la liste des lexèmes
-//parametre chaine: une chaine de caracteres
+//Fonction creant la liste des lexèmes
+//Parametre chaine: une chaine de caracteres
 //retourne une liste de chaines de caracteres
 char** CreationListeLexeme(const char* chaine) {
     //allouer dynamiquement la liste des lexemes

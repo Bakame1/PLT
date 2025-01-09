@@ -12,7 +12,7 @@ typedef struct {
     void (*func)(ASTNode *, ASTNode *);        //Pointeur vers la fonction correspondante
 } SymbolTableEntry;
 
-//On défini une table des symboles avec une capacité maximale
+//On définit une table des symboles avec une capacité maximale
 #define SYMBOL_TABLE_SIZE 100
 SymbolTableEntry symbol_table[SYMBOL_TABLE_SIZE];
 int symbol_table_count = 0;
@@ -51,7 +51,6 @@ void Implique(ASTNode *left, ASTNode *right) {
 //Parametre name : chaine de caracteres
 //Parametre num_params : entier
 //Parametre func : fonction void
-
 void add_symbol(const char *name, int num_params, void (*func)(ASTNode *, ASTNode *)) {
 
     //Vérification de la capacité de la table des symboles
@@ -93,7 +92,7 @@ void initialize_symbol_table() {
 
 //Fonction pour initialiser la machine virtuelle
 void initialize_virtual_machine() {
-    //Exemple de codes CFA pour les opérateurs :
+    //Codes CFA utilisés :
     //ET -> 0, NON -> 1, OU -> 2, IMPLIQUE -> 3
     virtual_machine[0] = 0; //ET
     virtual_machine[1] = 1; //NON
@@ -106,7 +105,7 @@ void initialize_virtual_machine() {
 //Fonction pour trouver un symbole dans la table des symboles en la parcourant
 //Parametre name : pointeur vers une chaîne de caractères
 //Retourne un entier qui indique le résultat de la recherche,
-//si le symbole est trouvé, elle retourne l'index du symbole dans la table des symboles.
+//Si le symbole est trouvé, la fonction retourne l'index du symbole dans la table des symboles.
 //Sinon elle retourne -1
 int find_symbol(const char *name) {
     for (int i = 0; i < symbol_table_count; i++) {

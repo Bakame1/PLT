@@ -10,13 +10,14 @@
 
 //Fonction test réalisant une analyse syntaxique sur une expression choisie
 //Parametre expression : chaine de caracteres
-//Affiche le l'arbre syntaxique si l'analyse est réussie sinon une erreur
+//Affiche l'arbre syntaxique si l'analyse est réussie sinon une erreur
 void test_synt(char* expression){
     //Gestion des caractères UTF-8
     setlocale(LC_ALL, "");
 
     //Création de la liste de lexemes
     char** lexemes = CreationListeLexeme(expression);
+    
     //Analyse syntaxique à partir de cette liste de lexmes
     ASTNode* ast = analyseur_syntaxique(lexemes);
 
@@ -31,7 +32,7 @@ void test_synt(char* expression){
     
 }
 
-//Fonction principale avec les differentes règles de logique provenant du fichier Regles.txt
+//Fonction principale avec differentes règles de logique comme tests
 int main() {
 
     //tests valides
@@ -45,8 +46,12 @@ int main() {
     
     
     //tests invalides
+    //A tester une par une car l'execution s'arrete dès lors qu'il y a une erreur sémantique
+    //Empechant alors de tester toutes les expressions invalides à la suite
     printf("\nTests invalides : \n\n");
-    test_synt("(p1⇒p2");//Parenthese manquante
+    
+    test_synt("(p1⇒p2");//Parenthese fermante manquante
+    //test_synt("p1⇒p2)");//Parenthese ouvrante manquante
   
 
     return 0;

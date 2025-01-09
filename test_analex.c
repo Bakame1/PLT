@@ -1,11 +1,9 @@
-// Memes librairies que dans analex.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <locale.h>
 
-//On relie au fichier analex.c pour réaliser tous les tests
 #include "analex.c"
 
 
@@ -25,18 +23,18 @@ void test(char* expression){
     printf("[");
     for (int i = 0; lexemes[i] != NULL; i++) {
         printf("%s,", lexemes[i]);
-        free(lexemes[i]); //Libérer la mémoire utilisée par chaque lexeme
+        free(lexemes[i]); //On libére la mémoire utilisée par chaque lexeme
     }
     printf("]\n\n");
     
-    //Libérer la mémoire utilisée par la liste des lexemes
+    //On libére la mémoire utilisée par la liste des lexemes
     free(lexemes); 
 
 
 }
 
 
-//Fonction principale avec les differentes règles de logique provenant du fichier
+//Fonction principale avec differentes règles de logique 
 int main() {
 	
 	//Tests valides
@@ -49,10 +47,12 @@ int main() {
 	test("(¬(¬p1))→p1");
 	
 	//Tests invalides
-	//Il est important de les réaliser un par un car les tests invalide stop l'execution
-	//test("(¬(P1∨p2))→((¬p1)∧(¬P2))");//majuscule
+	//Il est important de les réaliser un par un car les tests invalide stop l'execution du programme,
+	//Empechant d'executer les suivants
+	
+	test("(¬(P1∨p2))→((¬p1)∧(¬P2))");//majuscule
 	//test("(¬(¬p1))→p?a");//caractere innatendu
-	test("(¬(¬p%1))→p2");//caractere innatendu
+	//test("(¬(¬p%1))→p2");//caractere innatendu
 	
     	return 0;
     
